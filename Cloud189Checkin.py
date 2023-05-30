@@ -82,7 +82,7 @@ def calculate_md5_sign(params):
     return hashlib.md5('&'.join(sorted(params.split('&'))).encode('utf-8')).hexdigest()
 
 
-def getEncrypt():
+def get_encrypt_key():
     """
     获取公钥
     :return:
@@ -99,7 +99,7 @@ def getEncrypt():
     return encrypt_key
 
 
-def redirectURL():
+def redirect_url():
     """
     获取 lt 及 reqId
     :return:
@@ -119,7 +119,7 @@ def get_login_form_data(username, password, encrypt_key):
     :param encrypt_key:
     :return:
     """
-    query = redirectURL()
+    query = redirect_url()
     data = {
         'version': '2.0',
         'appKey': 'cloud'
@@ -189,7 +189,7 @@ def do_login(username, password):
     """
     登录流程：1.获取公钥 -> 2.获取登录参数 -> 3.获取登录地址,跳转到登录页
     """
-    encrypt_key = getEncrypt()
+    encrypt_key = get_encrypt_key()
     login_form_data = get_login_form_data(username, password, encrypt_key)
     login_result = login(login_form_data)
     return encrypt_key, login_form_data, login_result
